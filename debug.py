@@ -1,14 +1,19 @@
 from __init__ import CONN, CURSOR  
-from book_library import Book
-from book_library import Library
-import random
 import ipdb
+from library import Library
 
 
+Library.drop_table()
+Library.create_table()
 
-nooks_library = Library("Nooks")
-nooks_library.create_table()
-Book.create_table()
+nooks = Library.create('Nooks')
+fisk = Library.create('Fisk')
+google = Library.create('Google')
 
+nooks.name = 'Brooks'
+nooks.update()
 
-ipdb.set_trace()
+CURSOR.execute("""SELECT * FROM libraries""")
+libraries = CURSOR.fetchall()
+print(libraries)
+# ipdb.set_trace()
