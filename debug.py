@@ -21,6 +21,8 @@ world_war_2.library_id = google.id
 world_war_2.author = 'Jeff Hernandez'
 world_war_2.update()
 
+it.delete()
+
 libraries = CURSOR.execute("""SELECT * FROM libraries""").fetchall()
 books = CURSOR.execute("""SELECT * FROM  books""").fetchall()
 print(libraries)
