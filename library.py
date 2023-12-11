@@ -4,6 +4,17 @@ class Library:
     def __init__(self, name):
         self.id = None
         self.name = name
+
+    @property
+    def name(self):
+        return self._name
+    
+    @name.setter
+    def name(self, name):
+        if isinstance(name, str) and len(name):
+            self._name = name
+        else:
+            raise ValueError('name must be of type string')
     
     @classmethod
     def create_table(self):
@@ -50,4 +61,13 @@ class Library:
         """
 
         CURSOR.execute(sql, (self.name, self.id))
+        CONN.commit()
+
+    def delete(self):
+        sql = """
+            DELETE FROM libraries 
+            WHERE id = ?
+        """
+
+        CURSOR.execute(sql, (self.id,))
         CONN.commit()

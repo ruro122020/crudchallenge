@@ -10,8 +10,7 @@ nooks = Library.create('Nooks')
 fisk = Library.create('Fisk')
 google = Library.create('Google')
 
-nooks.name = 'Brooks'
-nooks.update()
+
 
 CURSOR.execute("""SELECT * FROM libraries""")
 libraries = CURSOR.fetchall()
