@@ -11,6 +11,37 @@ class Book:
         self.published_year = published_year
         self.library_id = library_id
 
+    @property
+    def title(self):
+        return self._title
+    @title.setter
+    def title(self, title):
+        if isinstance(title, str) and len(title):
+            self._title = title
+        else:
+            raise ValueError('title must be of type string')
+        
+    @property
+    def author(self):
+        return self._author 
+    @author.setter
+    def author(self, author):
+        if isinstance(author, str) and len(author):
+            self._author = author
+        else:
+            raise ValueError('author must be of type string')
+    
+    @property
+    def published_year(self):
+        return self._published_year 
+    @published_year.setter
+    def published_year(self, published_year):
+        if isinstance(published_year, int) and published_year:
+            self._published_year = published_year
+        else: 
+            raise ValueError("published_year must be of type int")
+
+
     @classmethod
     def create_table(cls):
         sql = """
@@ -71,3 +102,5 @@ class Book:
 
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
+
+    
