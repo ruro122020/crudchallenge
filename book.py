@@ -82,7 +82,6 @@ class Book:
         CONN.commit()
 
         self.id = CURSOR.lastrowid
-        type(self).all[self.id] = self
 
     def update(self):
         sql = """
