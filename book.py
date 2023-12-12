@@ -114,29 +114,7 @@ class Book:
         """
         row = CURSOR.execute(sql, (title,)).fetchone()
         return cls.instance_from_db(row) if row else None
-    
-    @classmethod
-    def find_books_by_library_id(cls, library_id):
-        sql = """
-            SELECT * FROM books 
-            WHERE library_id = ?
-        """
-        rows = CURSOR.execute(sql, (library_id,)).fetchall()
 
-        return [cls.instance_from_db(row) for row in rows]
-    
-
-    @classmethod
-    def find_books_by_library(cls, name):
-        library_id = Library.find_by_name(name).id
-       
-        sql = """
-            SELECT * FROM books
-            WHERE library_id = ?
-        """
-        rows = CURSOR.execute(sql, (library_id,)).fetchall()
-        return [cls.instance_from_db(row) for row in rows]
-    
     def save(self):
         sql ="""
             INSERT INTO books (title, author, published_year, library_id)

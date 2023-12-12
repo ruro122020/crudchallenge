@@ -121,3 +121,14 @@ class Library:
 
         del type(self).all[self.id] 
         self.id = None
+
+    def books(self):
+        from book import Book
+        sql = """
+            SELECT * FROM books
+            WHERE library_id = ?
+        """
+
+        rows = CURSOR.execute(sql, (self.id,)).fetchall()
+        
+        return [Book.instance_from_db(row) for row in rows]
