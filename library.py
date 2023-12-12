@@ -69,6 +69,19 @@ class Library:
         
         return [cls.instance_from_db(row) for row in rows]
 
+    @classmethod
+    def find_by_id(cls, id):
+        sql = """
+            SELECT * FROM libraries 
+            WHERE id = ?
+        """
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+
+    @classmethod
+    def find_by_name(cls):
+        pass
+
     def save(self):
         sql = """
             INSERT INTO libraries (name) VALUES (?)

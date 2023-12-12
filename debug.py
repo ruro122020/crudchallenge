@@ -30,5 +30,5 @@ print(Library.get_all())
 books = CURSOR.execute("""SELECT * FROM  books""").fetchall()
 #print(libraries)
 print(books)
-
+print(Library.find_by_id(1))
 # ipdb.set_trace()
