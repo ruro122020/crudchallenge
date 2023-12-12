@@ -1,6 +1,8 @@
 from __init__ import CONN, CURSOR
 
 class Library:
+    all = {}
+
     def __init__(self, name):
         self.id = None
         self.name = name
@@ -51,7 +53,7 @@ class Library:
         CONN.commit()
 
         self.id = CURSOR.lastrowid
-    
+        type(self).all[self.id] = self
 
     def update(self):
         sql = """
@@ -71,3 +73,6 @@ class Library:
 
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
+
+        del type(self).all[self.id] 
+        self.id = None

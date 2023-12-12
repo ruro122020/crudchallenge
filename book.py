@@ -82,6 +82,7 @@ class Book:
         CONN.commit()
 
         self.id = CURSOR.lastrowid
+        type(self).all[self.id] = self
 
     def update(self):
         sql = """
@@ -98,8 +99,9 @@ class Book:
             DELETE FROM books 
             WHERE id = ?
         """
-
         CURSOR.execute(sql, (self.id,))
         CONN.commit()
 
+        del type(self).all[self.id]
+        self.id = None
     
