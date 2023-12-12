@@ -72,6 +72,22 @@ class Book:
         book.save()
         return book
     
+    @classmethod
+    def instance_from_db(cls, row):
+        book = cls.all[row[0]]
+        if book:
+            book.title = row[1]
+            book.author = row[2]
+            book.published_year = row[3]
+            book.library_id = row[4]
+        else:
+            book = cls(row[1], row[2], row[3], row[4])
+            book.id = row[0]
+            cls.all[book.id] = book
+        return book
+    
+
+    
     def save(self):
         sql ="""
             INSERT INTO books (title, author, published_year, library_id)

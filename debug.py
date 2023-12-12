@@ -27,8 +27,8 @@ world_war_2 = Book.create("World War II", "Eve Sanders", 2000, fisk.id)
 
 
 print(Library.get_all())
-books = CURSOR.execute("""SELECT * FROM  books""").fetchall()
+book = CURSOR.execute("""SELECT * FROM  books""").fetchone()
 #print(libraries)
-print(books)
+print(Book.instance_from_db(book).title)
 print(Library.find_by_name("nooks").name)
 # ipdb.set_trace()
