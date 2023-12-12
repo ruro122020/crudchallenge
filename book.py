@@ -104,7 +104,26 @@ class Book:
         """
 
         row = CURSOR.execute(sql, (id,)).fetchone()
-        return cls.instance_from_db(row)
+        return cls.instance_from_db(row) if row else None
+    
+    @classmethod
+    def find_by_title(cls, title):
+        sql = """
+            SELECT * FROM books
+            WHERE title = ? 
+        """
+        row = CURSOR.execute(sql, (title,)).fetchone()
+        return cls.instance_from_db(row) if row else None
+    
+    @classmethod
+    def find_books_by_library_id(cls, library_id):
+        sql = """
+            SELECT * FROM books 
+            WHERE library_id is ?
+        """
+        rows = CURSOR.execute(sql, (library_id,)).fetchall()
+
+        return [cls.instance_from_db(row) for row in rows]
     
     def save(self):
         sql ="""
