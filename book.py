@@ -1,5 +1,5 @@
 from __init__ import CONN, CURSOR
-from library import Library
+
 class Book:
 
     all = {}
