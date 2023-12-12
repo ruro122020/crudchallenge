@@ -14,6 +14,7 @@ class Library:
     @name.setter
     def name(self, name):
         if isinstance(name, str) and len(name):
+            new_name = name.capitalize()
             self._name = name
         else:
             raise ValueError('name must be of type string')
@@ -79,8 +80,14 @@ class Library:
         return cls.instance_from_db(row) if row else None
 
     @classmethod
-    def find_by_name(cls):
-        pass
+    def find_by_name(cls, name):
+        new_name = name.capitalize()
+        sql ="""
+            SELECT * FROM libraries
+            WHERE name is ?
+        """
+        row = CURSOR.execute(sql, (new_name,)).fetchone()
+        return cls.instance_from_db(row) if row else None
 
     def save(self):
         sql = """
