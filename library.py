@@ -43,6 +43,31 @@ class Library:
         library = cls(name)
         library.save()
         return library
+    
+    @classmethod
+    def instance_from_db(cls, row):
+        #check if row exist in dictionary
+        library = cls.all[row[0]]
+
+        if library:
+          #make sure the value for that library matches
+          library.name = row[1]
+        else: 
+            #if library instance doesn't exist in dictionary, create an instance and add it to the dictionary
+            library = cls(row[1])
+            library.id = row[0]
+            cls.all[library.id] = library
+        return library
+            
+    @classmethod
+    def get_all(cls):
+        sql = """
+            SELECT * FROM libraries
+        """
+        rows = CURSOR.execute(sql).fetchall()
+        CONN.commit()
+        
+        return [cls.instance_from_db(row) for row in rows]
 
     def save(self):
         sql = """
