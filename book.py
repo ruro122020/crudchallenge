@@ -96,7 +96,15 @@ class Book:
 
         return [cls.instance_from_db(row) for row in rows]
 
+    @classmethod
+    def find_by_id(cls, id):
+        sql = """
+            SELECT * FROM books
+            WHERE id = ?
+        """
 
+        row = CURSOR.execute(sql, (id,)).fetchone()
+        return cls.instance_from_db(row)
     
     def save(self):
         sql ="""
